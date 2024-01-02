@@ -10,6 +10,8 @@ const questionChoices = document.getElementById('choices');
 const feedback = document.getElementById('feedback');
 const finalScore = document.getElementById('final-score');
 const submitButton = document.getElementById('submit');
+const successAudio = new Audio('./assets/sfx/correct.wav');
+const failAudio = new Audio('./assets/sfx/incorrect.wav');
 
 
 let currentIndex = 0;
@@ -49,11 +51,13 @@ const answerClicked = (e) => {
         feedback.classList.remove('hide');
         feedback.innerHTML = 'Correct!';
         score += 5;
+        successAudio.play();
         reset();
     } else {
         feedback.classList.remove('hide');
         feedback.innerHTML = 'Wrong!';
         seconds -= 10;
+        failAudio.play();
         reset();
     }
 }
