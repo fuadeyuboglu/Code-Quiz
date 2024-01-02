@@ -34,6 +34,7 @@ const submitButton = document.getElementById('submit');
 let currentIndex = 0;
 let score = 0;
 let scores = [];
+let seconds = 75;
 
 const endGame = (timer) => {
     clearInterval(timer);
@@ -71,6 +72,7 @@ const answerClicked = (e) => {
     } else {
         feedback.classList.remove('hide');
         feedback.innerHTML = 'Wrong!';
+        seconds -= 10;
         reset();
     }
 }
@@ -95,7 +97,6 @@ startButton.addEventListener('click', () => {
     startScreen.classList.add('hide');
     questionScreen.classList.remove('hide');
 
-    let seconds = 5;
     const timer = setInterval(() => {
         time.innerHTML = seconds;
         if (seconds < 1) {
