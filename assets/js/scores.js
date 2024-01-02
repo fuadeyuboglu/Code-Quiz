@@ -3,8 +3,11 @@ const clearButton = document.getElementById('clear');
 
 const scoresArray = JSON.parse(localStorage.getItem('scores'));
 let list = "";
-console.log(scoresArray);
-console.log(scoreList);
+
+// Sort the score list by descending order
+scoresArray.sort((a, b) => {
+    return b.score - a.score;
+});
 
 scoresArray.forEach(element => {
     list += `<li>${element.initials}-${element.score}</li>`;
