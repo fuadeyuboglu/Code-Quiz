@@ -76,10 +76,13 @@ startButton.addEventListener('click', () => {
     startScreen.classList.add('hide');
     questionScreen.classList.remove('hide');
 
-    let seconds = 75;
-    setInterval(() => {
-        seconds = seconds - 1;
+    let seconds = 5;
+    const timer = setInterval(() => {
         time.innerHTML = seconds;
+        if (seconds < 1) {
+            clearInterval(timer);
+        }
+        seconds = seconds - 1;
     }, 1000);
 
     fetchQuestion(currentIndex);
