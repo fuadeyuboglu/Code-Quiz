@@ -33,15 +33,22 @@ const finalScore = document.getElementById('final-score');
 let currentIndex = 0;
 let score = 0;
 
+const endGame = (timer) => {
+    clearInterval(timer);
+    time.innerHTML = 0;
+    startScreen.classList.add('hide');
+    questionScreen.classList.add('hide');
+    feedback.classList.add('hide');
+    endScreen.classList.remove('hide');
+    finalScore.innerText = score;
+}
+
 const reset = () => {
     questionTitle.innerText = '';
     questionChoices.innerHTML = '';
     currentIndex++;
     if (currentIndex === questions.length) {
-        startScreen.classList.add('hide');
-        feedback.classList.add('hide');
-        endScreen.classList.remove('hide');
-        finalScore.innerText = score;
+        endGame();
     } else {
         fetchQuestion();
         setTimeout(() => {
@@ -90,11 +97,7 @@ startButton.addEventListener('click', () => {
     const timer = setInterval(() => {
         time.innerHTML = seconds;
         if (seconds < 1) {
-            clearInterval(timer);
-            questionScreen.classList.add('hide');
-            endScreen.classList.remove('hide');
-            feedback.classList.add('hide');
-            finalScore.innerText = score;
+            endGame(timer);
         }
         seconds = seconds - 1;
     }, 1000);
