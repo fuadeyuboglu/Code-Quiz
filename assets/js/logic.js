@@ -21,11 +21,13 @@ const questions = [
 
 const startButton = document.getElementById('start');
 const startScreen = document.getElementById('start-screen');
+const endScreen = document.getElementById('end-screen');
 const questionScreen = document.getElementById('questions');
 const time = document.getElementById('time');
 const questionTitle = document.getElementById('question-title');
 const questionChoices = document.getElementById('choices');
 const feedback = document.getElementById('feedback');
+const finalScore = document.getElementById('final-score');
 
 
 let currentIndex = 0;
@@ -48,6 +50,7 @@ const answerClicked = (e) => {
     if (buttonClicked === questions[currentIndex].answer) {
         feedback.classList.remove('hide');
         feedback.innerHTML = 'Correct!';
+        score += 5;
         reset();
     } else {
         feedback.classList.remove('hide');
@@ -81,6 +84,10 @@ startButton.addEventListener('click', () => {
         time.innerHTML = seconds;
         if (seconds < 1) {
             clearInterval(timer);
+            questionScreen.classList.add('hide');
+            endScreen.classList.remove('hide');
+            feedback.classList.add('hide');
+            finalScore.innerText = score;
         }
         seconds = seconds - 1;
     }, 1000);
