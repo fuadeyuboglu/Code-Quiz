@@ -37,11 +37,18 @@ const reset = () => {
     questionTitle.innerText = '';
     questionChoices.innerHTML = '';
     currentIndex++;
-    fetchQuestion();
-    setTimeout(() => {
+    if (currentIndex === questions.length) {
+        startScreen.classList.add('hide');
         feedback.classList.add('hide');
-        feedback.innerHTML = '';
-    }, 1000);
+        endScreen.classList.remove('hide');
+        finalScore.innerText = score;
+    } else {
+        fetchQuestion();
+        setTimeout(() => {
+            feedback.classList.add('hide');
+            feedback.innerHTML = '';
+        }, 1000);
+    }
 }
 
 const answerClicked = (e) => {
