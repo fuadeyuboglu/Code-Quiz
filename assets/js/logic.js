@@ -25,6 +25,37 @@ const questionScreen = document.getElementById('questions');
 const time = document.getElementById('time');
 const questionTitle = document.getElementById('question-title');
 const questionChoices = document.getElementById('choices');
+const feedback = document.getElementById('feedback');
+
+const fetchQuestion = () => {
+     // Fetching question with answers
+     questionTitle.innerText = questions[0].question + ' = ?';
+
+     const answer = questions[0].answer;
+    
+     choiceList = '';
+ 
+     for (let i = 0; i <= 3; i++) {
+         choiceList += `<button class='choice' value='${questions[0].options[i]}'>${questions[0].options[i]}</button>`;
+     }
+ 
+     questionChoices.innerHTML = `${choiceList}`;
+
+     const buttonsArray = document.querySelectorAll('.choice');
+
+     buttonsArray.forEach((button) => {
+        button.addEventListener("click", () => {
+            const buttonClicked = button.value;
+            if (buttonClicked === answer) {
+                feedback.classList.remove('hide');
+                feedback.innerHTML = 'Correct!';
+            } else {
+                feedback.classList.remove('hide');
+                feedback.innerHTML = 'Wrong!';
+            }
+        })
+     })
+}
 
 
 
@@ -38,17 +69,6 @@ startButton.addEventListener('click', () => {
         time.innerHTML = seconds;
     }, 1000);
 
-
-    // Fetching question with answers
-    questionTitle.innerText = questions[0].question + ' = ?';
-    
-    choiceList = '';
-
-    for (let i = 0; i <= 3; i++) {
-        choiceList += `<button>${questions[0].options[i]}</button>`;
-    }
-
-    questionChoices.innerHTML = `${choiceList}`;
-
+    fetchQuestion();
 
 })
