@@ -28,11 +28,18 @@ const questionChoices = document.getElementById('choices');
 const feedback = document.getElementById('feedback');
 
 
-const currentIndex = 0;
+let currentIndex = 0;
+let score = 0;
 
 const reset = () => {
     questionTitle.innerText = '';
     questionChoices.innerHTML = '';
+    currentIndex++;
+    fetchQuestion();
+    setTimeout(() => {
+        feedback.classList.add('hide');
+        feedback.innerHTML = '';
+    }, 1000);
 }
 
 const answerClicked = (e) => {
@@ -49,7 +56,7 @@ const answerClicked = (e) => {
     }
 }
 
-const fetchQuestion = (currentIndex) => {
+const fetchQuestion = () => {
         const question = questions[currentIndex];
         questionTitle.innerText = question.text + ' = ?';
 
