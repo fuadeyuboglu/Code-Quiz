@@ -1,5 +1,5 @@
 const questions = [
-    {'question': '5 X 5',
+    {'text': '5 X 5',
         'options': [
         '15',
         '35',
@@ -8,7 +8,7 @@ const questions = [
         'answer': '25'
     },
     
-    {'question': '3 X 5',
+    {'text': '3 X 5',
         'options': [
         '15',
         '35',
@@ -27,34 +27,40 @@ const questionTitle = document.getElementById('question-title');
 const questionChoices = document.getElementById('choices');
 const feedback = document.getElementById('feedback');
 
-const fetchQuestion = () => {
-     // Fetching question with answers
-     questionTitle.innerText = questions[0].question + ' = ?';
 
-     const answer = questions[0].answer;
-    
-     choiceList = '';
- 
-     for (let i = 0; i <= 3; i++) {
-         choiceList += `<button class='choice' value='${questions[0].options[i]}'>${questions[0].options[i]}</button>`;
-     }
- 
-     questionChoices.innerHTML = `${choiceList}`;
+const currentIndex = 0;
 
-     const buttonsArray = document.querySelectorAll('.choice');
+const reset = () => {
+    questionTitle.innerText = '';
+    questionChoices.innerHTML = '';
+}
 
-     buttonsArray.forEach((button) => {
-        button.addEventListener("click", () => {
-            const buttonClicked = button.value;
-            if (buttonClicked === answer) {
-                feedback.classList.remove('hide');
-                feedback.innerHTML = 'Correct!';
-            } else {
-                feedback.classList.remove('hide');
-                feedback.innerHTML = 'Wrong!';
-            }
+const answerClicked = (e) => {
+    const buttonClicked = e.target.value;
+    console.log(buttonClicked);
+    if (buttonClicked === questions[currentIndex].answer) {
+        feedback.classList.remove('hide');
+        feedback.innerHTML = 'Correct!';
+        reset();
+    } else {
+        feedback.classList.remove('hide');
+        feedback.innerHTML = 'Wrong!';
+        reset();
+    }
+}
+
+const fetchQuestion = (currentIndex) => {
+        const question = questions[currentIndex];
+        questionTitle.innerText = question.text + ' = ?';
+
+        question.options.forEach((option) => {
+            const button = document.createElement('button');
+            button.innerText = option;
+            button.value = option;
+            button.addEventListener('click', answerClicked);
+            questionChoices.appendChild(button);
         })
-     })
+
 }
 
 
@@ -69,6 +75,6 @@ startButton.addEventListener('click', () => {
         time.innerHTML = seconds;
     }, 1000);
 
-    fetchQuestion();
+    fetchQuestion(currentIndex);
 
 })
