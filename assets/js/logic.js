@@ -110,10 +110,11 @@ startButton.addEventListener('click', () => {
 
 submitButton.addEventListener('click', () => {
     const initials = document.getElementById('initials').value;
-    if (JSON.parse(localStorage.getItem('scores'))) {
+    if (localStorage.getItem('scores')) {
         scores = JSON.parse(localStorage.getItem('scores'));
     }
     scores.push({'initials': initials, 'score': score})
     console.log(scores);
     localStorage.setItem('scores', JSON.stringify(scores));
+    window.location.href = '/highscores.html';
 });
