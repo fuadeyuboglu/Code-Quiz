@@ -28,10 +28,12 @@ const questionTitle = document.getElementById('question-title');
 const questionChoices = document.getElementById('choices');
 const feedback = document.getElementById('feedback');
 const finalScore = document.getElementById('final-score');
+const submitButton = document.getElementById('submit');
 
 
 let currentIndex = 0;
 let score = 0;
+let scores = [];
 
 const endGame = (timer) => {
     clearInterval(timer);
@@ -105,3 +107,13 @@ startButton.addEventListener('click', () => {
     fetchQuestion(currentIndex);
 
 })
+
+submitButton.addEventListener('click', () => {
+    const initials = document.getElementById('initials').value;
+    if (JSON.parse(localStorage.getItem('scores'))) {
+        scores = JSON.parse(localStorage.getItem('scores'));
+    }
+    scores.push({'initials': initials, 'score': score})
+    console.log(scores);
+    localStorage.setItem('scores', JSON.stringify(scores));
+});
